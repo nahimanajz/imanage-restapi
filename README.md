@@ -35,7 +35,7 @@ List of endpoints
  - GET. /api/debits
  - PUT|PATCH. /api/debits/{id}
  - DELETE. /api/debits/{id}
-3. apiResource /debits
+
 
 4. apiResource /debits
  - POST. /api/debits
