@@ -5,7 +5,6 @@ use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Requests\UserValidator;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Resources\UserResource as UserResource;
@@ -66,27 +65,33 @@ class UserController extends Controller
      * Login user and create token
      */
       public function login(UserLoginRequest $request) {
-        $credentials = request(['email', 'password']);
-        if(!Auth::attempt($credentials)){
-            return response()->json([
-                'message' => 'Unauthorized'
-            ], 401);
-        }
-        $user = $request->user();
-        $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
+          try {
+            $credentials = request(['email','password']);
+            if(!Auth::attempt($credentials)){
+                return response()->json([
+                    'message' => 'Unauthorized'
+                ], 401);
+            }
+            $user = $request->user();
+            $tokenResult = $user->createToken('Personal Access Token');
+            $token = $tokenResult->token;
+    
+            if($request->remember_me){
+                $token->expires_at = Carbon::now()->addWeeks(1);
+                $token->save();
+    
+                return response()->json([
+                    'access_token' => $tokenResult->accessToken,
+                    'token_type' => Carbon::parse(
+                        $tokenResult->token->expires_at)->toDateTimeString()
+                    
+                ]);    
+            }
+            
 
-        if($request->remember_me){
-            $token->expires_at = Carbon::now()->addWeeks(1);
-            $token->save();
-
-            return response()->json([
-                'access_token' => $tokenResult->accessToken,
-                'token_type' => Carbon::parse(
-                    $tokenResult->token->expires_at)->toDateTimeString()
-                
-            ]);    
-        }
+          } catch (\Throwable $th) {
+              return response()->json(["message"=>$th->getMessage()], 500);
+          }
         
       } 
     /**

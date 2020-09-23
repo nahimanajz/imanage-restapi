@@ -21,7 +21,8 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'name'=> $this->name,
             'phone'=> $this->phone,
-            'balance'=> $this->balance
+            'balance'=> $this->balance,
+            
         ];
     }
     public function with($request) {

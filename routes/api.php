@@ -17,19 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
 Route::apiResource('/users', 'UserController');
 
-Route::group([
-    'prefix' => 'auth'
-], function(){
-    Route::post('login', 'UserController@login');
-    Route::post('signup', 'UserController@store');
-    Route::group([
-        'middleware' => 'auth:api'
-    ], function() {
-        Route::get('logout','UserController@logout');
-        Route::get('user', 'UserController@user');
-    });
+// Testing passport tokens
+Route::post('login','AuthController@login');
+Route::post('signup','AuthController@signup');
+Route::group(['middleware' => 'auth:api'], function (){
+    Route::post('details','AuthController@details');
+});
+
+// Testing passport
+Route::group(['middleware'=>'auth:api'], function (){
+    Route::post('/user', 'UserController@login');
 });
 
 //before setting autorization
