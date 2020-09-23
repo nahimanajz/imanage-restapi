@@ -42,10 +42,16 @@ class UserController extends Controller
     {
         $validated = $request->validated();
         $data = array_merge($validated, ["password" => bcrypt($request->password)]);
+
         $user = User::create($data);
+        $makeToken = $user->createToken('Personal Access Token');
+        $saveToken = $makeToken->token;
+
         return response()->json([
             "message" => "User registered successfully",
-            "user"=>$user ],
+            "user"=>$user,
+            "token" => $makeToken->accessToken
+        ],
             201);
        
         
@@ -65,34 +71,25 @@ class UserController extends Controller
      * Login user and create token
      */
       public function login(UserLoginRequest $request) {
-          try {
-            $credentials = request(['email','password']);
+         
+            $credentials = $request->validated();
             if(!Auth::attempt($credentials)){
-                return response()->json([
-                    'message' => 'Unauthorized'
-                ], 401);
+                return response()->json([ 'message' => 'UnAuthorized user'], 401);
             }
             $user = $request->user();
+
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
-    
-            if($request->remember_me){
-                $token->expires_at = Carbon::now()->addWeeks(1);
-                $token->save();
-    
-                return response()->json([
-                    'access_token' => $tokenResult->accessToken,
-                    'token_type' => Carbon::parse(
-                        $tokenResult->token->expires_at)->toDateTimeString()
-                    
-                ]);    
-            }
-            
 
-          } catch (\Throwable $th) {
-              return response()->json(["message"=>$th->getMessage()], 500);
-          }
-        
+            $token->expires_at = Carbon::now()->addWeeks(1);
+            $token->save();
+            
+            return response()->json([
+                'user' => Auth::user(),
+                'access_token' => $tokenResult->accessToken,
+                'token_type' => Carbon::parse(
+                    $tokenResult->token->expires_at)->toDateTimeString()   
+            ]);       
       } 
     /**
      * Logout user (Revoke the token)

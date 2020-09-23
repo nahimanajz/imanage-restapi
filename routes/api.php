@@ -23,12 +23,10 @@ Route::apiResource('/users', 'UserController');
 // Testing passport tokens
 Route::post('login','AuthController@login');
 Route::post('signup','AuthController@signup');
-Route::group(['middleware' => 'auth:api'], function (){
-    Route::post('details','AuthController@details');
-});
+
 
 // Testing passport
-Route::group(['middleware'=>'auth:api'], function (){
+Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
 });
 
