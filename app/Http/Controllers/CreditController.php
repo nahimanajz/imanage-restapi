@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreCreditRequest;
 use App\Http\Resources\CreditResource as CreditResource;
 use App\Credit;
+use App\User;
 
 class CreditController extends Controller
 {
@@ -23,16 +24,7 @@ class CreditController extends Controller
     }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
+  
     /**
      * Store a newly created resource in storage.
      *
@@ -41,12 +33,18 @@ class CreditController extends Controller
      */
     public function store(StoreCreditRequest $request)
     {
-        $data = $request->validated();
-        $StoreCredit = Credit::create($data);
-        return response()->json([
-            "message"=>"Credit is saved successfully",
-            'Credit'=> $StoreCredit
-        ], 201); 
+        if(User::updateExpenseBalance(request('amount')) === true){        
+            $data = $request->validated();
+            $StoreCredit = Credit::create($data);
+            return response()->json([
+                "message"=>"Credit is saved successfully",
+                'Credit'=> $StoreCredit
+            ], 201); 
+        } else {
+            return response()->json(["message" => "Unable to give a credit due to insufficient balance "], 400);
+
+        }
+        
     }
 
     /**
@@ -67,16 +65,6 @@ class CreditController extends Controller
         return CreditResource::collection($Credits);        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -87,14 +75,16 @@ class CreditController extends Controller
      */
     public function update(StoreCreditRequest $request, $id)
     {
-        $Credit  = Credit::findOrFail($id);
-        $Credit->update($request->validated());
-        
-        return response()->json([
-            "message"=>"Credit is updated successfully",
-            'Credit'=> $Credit
-        ], 200); 
-    
+        if(User::updateExpenseBalance(request('amount')) === true){        
+            $Credit  = Credit::findOrFail($id);
+            $Credit->update($request->validated());
+            return response()->json([
+                "message"=>"Credit is updated successfully",
+                'Credit'=> $Credit
+            ], 200); 
+        }else {
+            return response()->json(["message" => "Unable to give a credit due to insufficient balance "], 400);
+        }  
     }
 
     /**

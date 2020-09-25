@@ -20,18 +20,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('/users', 'UserController');
 
-// Testing passport tokens
-Route::post('login','AuthController@login');
-Route::post('signup','AuthController@signup');
-
 // Testing passport
 Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
 });
 
 //before setting autorization
-Route::apiResource('/expenses','ExpenseController')->except(['create','edit']);
-Route::apiResource('/debits','DebitController')->except(['create','edit']);
-Route::apiResource('/credits','CreditController')->except(['create','edit']);
+Route::apiResource('/expenses','ExpenseController');
+Route::apiResource('/debits','DebitController');
+Route::apiResource('/credits','CreditController');
 
 

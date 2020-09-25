@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreDebitRequest;
 use App\Http\Resources\DebitResource as DebitResource;
 use App\Debit;
+use App\User;
 
 class DebitController extends Controller
 {
@@ -19,15 +20,6 @@ class DebitController extends Controller
         return DebitResource::collection(Debit::all());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -39,8 +31,9 @@ class DebitController extends Controller
     {
         $data = $request->validated();
         $storeDebit = Debit::create($data);
+        User::updateDepositBalance();
         return response()->json([
-            "message"=>"debit is saved successfully",
+            "message"=>"Debit is saved successfully",
             'debit'=> $storeDebit
         ], 201); 
     }
@@ -63,16 +56,6 @@ class DebitController extends Controller
         return DebitResource::collection($debits);        
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -85,7 +68,7 @@ class DebitController extends Controller
     {
         $debit  = Debit::findOrFail($id);
         $debit->update($request->validated());
-        
+        User::updateDepositBalance();
         return response()->json([
             "message"=>"debit is updated successfully",
             'debit'=> $debit
