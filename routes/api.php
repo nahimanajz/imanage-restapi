@@ -24,7 +24,6 @@ Route::apiResource('/users', 'UserController');
 Route::post('login','AuthController@login');
 Route::post('signup','AuthController@signup');
 
-
 // Testing passport
 Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
