@@ -77,16 +77,16 @@ class UserController extends Controller
                 'email'=>'required|email', 'password'=>'required|min:5'
                 ]);
             if($credentials->fails()){
-                return response()->json([
-                    "error"=>true,
-                    "message"=>'validation error encountered'
-                    //"message"=> $credentials->errors()->first()
+                return json_encode([
+                    "error"=> true,
+                    //"message"=>'validation error encountered'
+                    "message"=> $credentials->errors()->first()
                 ], 401);
             }    
            
 
-            if(!Auth::attempt($request->all())){
-                return json_encode(['error'=>true, 'message' => 'UnAuthorized user'], 401);
+            if(!Auth::attempt($request->only(['email','password']))){
+                return json_encode(['error'=>true, 'message' => 'Invalid Email or Password'], 401);
             }
             $user = $request->user();
             $tokenResult = $user->createToken('Personal Access Token');
