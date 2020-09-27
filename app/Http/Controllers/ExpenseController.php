@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Expense;
+use App\User;
 use App\Http\Requests\StoreExpenseRequest;
 use App\Http\Resources\ExpenseResource as ExpenseResource;
 class ExpenseController extends Controller
@@ -19,15 +21,7 @@ class ExpenseController extends Controller
         return ExpenseResource::collection($expenses);       
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,13 +29,15 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreExpenseRequest $request)
+    public function store(StoreExpenseRequest $req)
     {
-        return response()->json([
-            "message"=> "Expense stored successfully",
-            "expense" => Expense::create($request->validated()) 
-        ], 201);
-        
+        if(User::updateExpenseBalance(request('amount')) === true){
+            return response()->json([
+                "message"=> "Expense stored successfully",
+                "expense" => Expense::create($req->validated())], 201);
+        } else {
+            return response()->json(["message" => "Insufficient Balance "], 400);
+        }   
     }
 
     /**
@@ -62,10 +58,7 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -76,12 +69,18 @@ class ExpenseController extends Controller
      */
     public function update(StoreExpenseRequest $request, $id)
     {
-        $expense = Expense::findOrFail($id);
-        $expense->update($request->validated());
-        return response()->json([
-            "message"=> "Expense Updated Successfully",
-            "expense" => $expense 
-        ], 200);
+        if(User::updateExpenseBalance(request('amount')) === true){        
+            $expense = Expense::findOrFail($id);
+            $expense->update($request->validated());
+            
+            return response()->json([
+                 "message"=> "Expense Updated Successfully",
+                 "expense" => $expense 
+           ], 200);
+        }else {
+            return response()->json(["message" => "Insufficient Balance "], 400);
+        }  
+        
     }
 
     /**

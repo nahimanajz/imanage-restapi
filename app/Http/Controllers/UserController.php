@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
+use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserValidator;
 use App\Http\Requests\UserLoginRequest;
@@ -70,14 +71,24 @@ class UserController extends Controller
     /**
      * Login user and create token
      */
-      public function login(UserLoginRequest $request) {
-         
-            $credentials = $request->validated();
-            if(!Auth::attempt($credentials)){
-                return response()->json([ 'message' => 'UnAuthorized user'], 401);
+      public function login(Request $request) {
+            //$credentials = $request->validated();
+            $credentials = Validator::make($request->all(),[
+                'email'=>'required|email', 'password'=>'required|min:5'
+                ]);
+            if($credentials->fails()){
+                return json_encode([
+                    "error"=> true,
+                    //"message"=>'validation error encountered'
+                    "message"=> $credentials->errors()->first()
+                ], 401);
+            }    
+           
+
+            if(!Auth::attempt($request->only(['email','password']))){
+                return json_encode(['error'=>true, 'message' => 'Invalid Email or Password'], 401);
             }
             $user = $request->user();
-
             $tokenResult = $user->createToken('Personal Access Token');
             $token = $tokenResult->token;
 
@@ -85,11 +96,13 @@ class UserController extends Controller
             $token->save();
             
             return response()->json([
+                'error'=>false,
                 'user' => Auth::user(),
-                'access_token' => $tokenResult->accessToken,
+                'token' => $tokenResult->accessToken,
                 'token_type' => Carbon::parse(
                     $tokenResult->token->expires_at)->toDateTimeString()   
-            ]);       
+            ]);      
+           
       } 
     /**
      * Logout user (Revoke the token)

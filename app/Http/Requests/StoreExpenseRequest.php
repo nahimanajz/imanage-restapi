@@ -33,7 +33,8 @@ class StoreExpenseRequest extends FormRequest
     }
     public function messages() {
         return [
-            "user_id.exists"=> " Not an existing user id"
+            "user_id.exists"=> " Not an existing user id",
+            
         ];
     }
 }
