@@ -551,7 +551,6 @@ class ComposerStaticInitd0d4880e2905645cbb018e449f74fcd3
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Expense' => __DIR__ . '/../..' . '/app/Expense.php',
         'App\\Helpers\\SuccessMessage' => __DIR__ . '/../..' . '/app/Helpers/SuccessMessage.php',
-        'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\CreditController' => __DIR__ . '/../..' . '/app/Http/Controllers/CreditController.php',
         'App\\Http\\Controllers\\DebitController' => __DIR__ . '/../..' . '/app/Http/Controllers/DebitController.php',
