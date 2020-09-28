@@ -36,7 +36,7 @@ class ExpenseController extends Controller
                 "message"=> "Expense stored successfully",
                 "expense" => Expense::create($req->validated())], 201);
         } else {
-            return response()->json(["message" => "Insufficient Balance "], 400);
+            return response()->json(["message" => "Insufficient Balance ","status"=>400]);
         }   
     }
 
