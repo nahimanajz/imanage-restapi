@@ -6,7 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use Validator;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\UserValidator;
+use App\Http\Requests\SignupRequest;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Resources\UserResource as UserResource;
 
@@ -39,7 +39,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserValidator $request)
+    public function store(SignupRequest $request)
     {
         $validated = $request->validated();
         $data = array_merge($validated, ["password" => bcrypt($request->password)]);
@@ -72,19 +72,9 @@ class UserController extends Controller
      * Login user and create token
      */
       public function login(Request $request) {
-            //$credentials = $request->validated();
             $credentials = Validator::make($request->all(),[
-                'email'=>'required|email', 'password'=>'required|min:5'
-                ]);
-            if($credentials->fails()){
-                return json_encode([
-                    "error"=> true,
-                    //"message"=>'validation error encountered'
-                    "message"=> $credentials->errors()->first()
-                ], 401);
-            }    
-           
-
+                'email'=>'required|email', 'password'=>'required|min:6'
+                ]);   
             if(!Auth::attempt($request->only(['email','password']))){
                 return json_encode(['error'=>true, 'message' => 'Invalid Email or Password'], 401);
             }
