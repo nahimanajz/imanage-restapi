@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreCreditRequest extends FormRequest
 {
@@ -38,6 +40,10 @@ class StoreCreditRequest extends FormRequest
             "amount.required"=> "Write the money your debitor gave you",
             "timeToPay.after"=>"Do not write past date"
         ];
+    }
+    public function failedValidation(Validator $validator)  {
+        throw new HttpResponseException(response()->json(['message' => $validator->errors()->all()]));
+       
     }
     
 }

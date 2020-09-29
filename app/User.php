@@ -68,6 +68,6 @@ class User extends Authenticatable
     
     public static function updateDepositBalance($depositedAmount){
         $user= User::find(request('user_id'));
-        $user->update('balance', $this->getBalance() + $depositedAmount);  
+        $user->update(['balance'=> User::getBalance() + $depositedAmount]);  
     }
 }
