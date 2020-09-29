@@ -31,10 +31,10 @@ class DebitController extends Controller
     {
         $data = $request->validated();
         $storeDebit = Debit::create($data);
-        User::updateDepositBalance();
+        User::updateDepositBalance(request('amount'));
         return response()->json([
             "message"=>"Debit is saved successfully",
-            'debit'=> $storeDebit
+            "debit"=> $storeDebit
         ], 201); 
     }
 
@@ -71,8 +71,9 @@ class DebitController extends Controller
         User::updateDepositBalance();
         return response()->json([
             "message"=>"debit is updated successfully",
-            'debit'=> $debit
-        ], 200); 
+            "debit"=> $debit,
+            "status"=> 200
+        ]); 
     
     }
 
@@ -88,6 +89,7 @@ class DebitController extends Controller
         $debit->delete();
         return response()->json([
             "message"=>"Debit is deleted successfully",
-        ], 200); 
+            "status"=>200
+        ]); 
     }
 }
