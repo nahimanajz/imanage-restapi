@@ -41,6 +41,6 @@ class UserRequestRule implements Rule
      */
     public function message()
     {
-        return 'The :attributevalidation error message.';
+        return 'The :attribute validation error message.';
     }
 }
