@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCreditRequest;
 use App\Http\Resources\CreditResource as CreditResource;
 use App\Credit;
@@ -16,12 +17,9 @@ class CreditController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   try {
-            return CreditResource::collection(Credit::all());
-
-    } catch (\Throwable $th) {
-        return response()->json(["message" =>$th->getMessage() ], 500);
-    }
+    {   
+         return CreditResource::collection(Auth::user()->credits);
+    
     }
 
   

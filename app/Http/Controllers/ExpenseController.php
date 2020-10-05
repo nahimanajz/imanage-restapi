@@ -15,10 +15,9 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($user_id)
+    public function index()
     {
-        $expenses = Expense::where('user_id', $user_id)->get();
-        return ExpenseResource::collection($expenses);       
+        return ExpenseResource::collection(Auth::user()->expenses);     
     }
 
     

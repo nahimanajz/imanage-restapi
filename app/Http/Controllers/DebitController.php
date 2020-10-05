@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreDebitRequest;
 use App\Http\Resources\DebitResource as DebitResource;
@@ -17,9 +18,8 @@ class DebitController extends Controller
      */
     public function index(Request $req)
     {
-
-        //return DebitResource::collection(Debit::all());
-        return response()->json(["debits"=>$req->user()->credits,"status"=>200]);
+        return DebitResource::collection(Auth::user()->debits);
+        
     }
 
 
