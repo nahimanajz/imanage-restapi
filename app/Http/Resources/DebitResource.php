@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Carbon\Carbon;
 
 class DebitResource extends JsonResource
 {
@@ -21,7 +22,8 @@ class DebitResource extends JsonResource
             "amount"=> $this->amount,
             "timeToPay" => $this->timeToPay,
             "user"=> $this->user->name,
-            "date"=> $this->created_at
+            "date"=> Carbon::instance($this->created_at)->toDateTimeString(),
+            "remainingDays"=> Carbon::now()->diffInDays($this->timeToPay)
         ];
     }
 }

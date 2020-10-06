@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCreditRequest;
 use App\Http\Resources\CreditResource as CreditResource;
+use App\Http\Resources\HttpResponseResource as Hrr;
+
 use App\Credit;
 use App\User;
 
@@ -18,7 +20,8 @@ class CreditController extends Controller
      */
     public function index()
     {   
-         return CreditResource::collection(Auth::user()->credits);
+        $credits = Auth::user()->credits;
+         return CreditResource::collection($credits);
     
     }
 
