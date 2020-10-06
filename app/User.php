@@ -1,7 +1,7 @@
 <?php
 
 namespace App;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -34,6 +34,7 @@ class User extends Authenticatable
      *
      * @var array
      */
+    
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -47,7 +48,7 @@ class User extends Authenticatable
     }
     
     public function expenses() {
-        return $this->hasMany('App\Expense', 'user_id');
+        return $this->hasMany(Expense::class);
     }
     
     private static function getBalance() {

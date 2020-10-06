@@ -17,8 +17,7 @@ class ExpenseController extends Controller
      */
     public function index()
     {
-        $expenses = Expense::all();
-        return ExpenseResource::collection($expenses);       
+        return ExpenseResource::collection(Auth::user()->expenses);     
     }
 
     
@@ -36,7 +35,7 @@ class ExpenseController extends Controller
                 "message"=> "Expense stored successfully",
                 "expense" => Expense::create($req->validated())], 201);
         } else {
-            return response()->json(["message" => "Insufficient Balance ","status"=>400]);
+            return response()->json(["message" => "Insufficient Balance ","status"=> 400]);
         }   
     }
 

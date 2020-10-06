@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Carbon\Carbon;
-use Validator;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\SignupRequest;
 use App\Http\Requests\UserLoginRequest;
@@ -45,13 +44,10 @@ class UserController extends Controller
         $data = array_merge($validated, ["password" => bcrypt($request->password)]);
 
         $user = User::create($data);
-        $makeToken = $user->createToken('Personal Access Token');
-        $saveToken = $makeToken->token;
-
         return response()->json([
             "message" => "User registered successfully",
             "user"=>$user,
-            "token" => $makeToken->accessToken
+            "token" => $this->signToken($request)
         ],
             201);
        
@@ -65,32 +61,22 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        
+    {  
+        return new UserResource(User::findOrFail($id));
     }
     /**
      * Login user and create token
      */
-      public function login(Request $request) {
-            $credentials = Validator::make($request->all(),[
-                'email'=>'required|email', 'password'=>'required|min:6'
-                ]);   
-            if(!Auth::attempt($request->only(['email','password']))){
+      public function login(UserLoginRequest $req) {
+            $credentials = $req->validated();
+            if(!Auth::attempt($credentials)){
                 return json_encode(['error'=>true, 'message' => 'Invalid Email or Password'], 401);
-            }
-            $user = $request->user();
-            $tokenResult = $user->createToken('Personal Access Token');
-            $token = $tokenResult->token;
-
-            $token->expires_at = Carbon::now()->addWeeks(1);
-            $token->save();
-            
+            }           
             return response()->json([
                 'error'=>false,
                 'user' => Auth::user(),
-                'token' => $tokenResult->accessToken,
-                'token_type' => Carbon::parse(
-                    $tokenResult->token->expires_at)->toDateTimeString()   
+                'token' => $this->signToken($req)
+               
             ]);      
            
       } 
@@ -100,7 +86,7 @@ class UserController extends Controller
      * @return [string] message
      */
     public function logout(Request $req) {
-        $request->user()->revoke();
+        $req->user()->tokens()->delete();
         return response()->json([
             "message" => "Successfully logged out"
         ]);
@@ -158,5 +144,8 @@ class UserController extends Controller
         $user->softDelete();
         return response()->json(["message" => "User is deleted"], 200);
     }
-   
+   private function signToken(Request $req) {
+    $key = ($req->device_name)?(string)$req->device_name:'Personal Access Token';
+    return $req->user()->createToken($key)->plainTextToken; 
+   }
 }

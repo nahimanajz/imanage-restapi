@@ -19,15 +19,24 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('/users', 'UserController');
+Route::get('/all/expenses','ExpenseController@index',);
 
 // Testing passport
 Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
 });
 
-//before setting autorization
-Route::apiResource('/expenses','ExpenseController');
-Route::apiResource('/debits','DebitController');
-Route::apiResource('/credits','CreditController');
 
+//Final step will be to set authorization token
+Route::group(['middleware'=> 'auth:sanctum'], function() {    
+    Route::get('all/users','UserController@index');
+    Route::apiResource('/debits','DebitController');
+    Route::apiResource('/credits','CreditController');
+    Route::apiResource('/expenses','ExpenseController');
+    Route::post('auth/logout', 'UserController@logout');
+});
+Route::get('/get-headers',function(){
+$headers = apache_request_headers()['user_id'];
+return (int)$headers;
+});
 
