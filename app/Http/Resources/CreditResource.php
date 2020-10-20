@@ -24,7 +24,7 @@ class CreditResource extends JsonResource
             "timeToPay" => $this->timeToPay,
             "user"=> $this->user->name,
             "date"=>$creationDate,
-            "remaining days to pay"=> Carbon::now()->diffInDays($paymentDate)
+            "remaining days"=> Carbon::now()->diffInDays($this->timeToPay)
         ];
     }
 }
