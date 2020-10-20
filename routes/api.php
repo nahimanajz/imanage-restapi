@@ -30,6 +30,7 @@ Route::group(['prefix'=>'auth'], function (){
 //Final step will be to set authorization token
 Route::group(['middleware'=> 'auth:sanctum'], function() {    
     Route::get('all/users','UserController@index');
+    Route::apiResource('/deposit', 'DepositController');
     Route::apiResource('/debits','DebitController');
     Route::apiResource('/credits','CreditController');
     Route::apiResource('/expenses','ExpenseController');

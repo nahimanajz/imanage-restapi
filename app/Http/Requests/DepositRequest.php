@@ -3,17 +3,18 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-class StoreExpenseRequest extends FormRequest
+
+class DepositRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorizeπ()
+    public function authorize()
     {
         return true;
     }
@@ -23,12 +24,9 @@ class StoreExpenseRequest extends FormRequest
      *
      * @return array
      */
-
     public function rules()
     {
         return [
-            "category"=> "required|string",
-            "description" => "string",
             "amount" => "required|numeric",
             "user_id"=> "required|exists:users,id"
         ];
