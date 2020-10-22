@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DebitPayment extends Model
 {
-    protected $guard =[];
+    protected $guarded =[];
     
 }

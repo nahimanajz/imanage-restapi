@@ -12,7 +12,7 @@ class CreditPaymentController extends Controller
     public function store(CreditPaymentRequest $req) {
 
         $data = $req->validated();
-        $currentPayment = CreditPayment::findOrFail($data['credit_id'])->sum('amount'); 
+        $currentPayment = CreditPayment::where('credit_id', $data['credit_id'])->sum('amount'); 
         $credit = Credit::findOrFail($data['credit_id'])->amount;
         
         if($credit >= $data['amount'] && $currentPayment< $credit){

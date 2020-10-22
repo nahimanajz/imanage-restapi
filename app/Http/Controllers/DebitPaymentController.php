@@ -12,24 +12,28 @@ class DebitPaymentController extends Controller
     public function store(DebitPaymentRequest $req) {
 
         $data = $req->validated();
-        $currentPayment = DebitPayment::findOrFail($data['Debit_id'])->sum('amount'); 
-        $Debit = Debit::findOrFail($data['Debit_id'])->amount;
+
+        $currentPayment = DebitPayment::where('debit_id', $data['debit_id'])->sum('amount'); 
+        $debit = Debit::findOrFail($data['debit_id'])->amount;
+        $response = [
+            "status"=> 201, 
+            "amount"=>(int)$data['amount'],
+            "currentPayment" => $currentPayment,
+            "debit" => $debit,
+            "message"=>"Payment was made"
+        ];
         
-        if($Debit >= $data['amount'] && $currentPayment< $Debit){
+        if($debit < $data['amount']){
+            $response['message'] ='You\'re Trying to pay money beyond your debit';
+            $response['status']= 400;            
+        } else if($currentPayment == $debit){
+            $response['message'] = 'Payment is already made';
+            $response['status']= 400;            
+        }else {
             DebitPayment::create($data);
-            return response()->json([
-                "status"=>203,
-                "message"=>"You have paid ".$data['amount'],
-                "currentPayment"=>$currentPayment-$data['amount'],
-                "currentDebit"=>$Debit
-               ]);
-        } else {
-            return response()->json([
-                "status"=>400,
-                "message"=>"You should not pay amount beyond the Debit ",
-                "currentPayment"=>$currentPayment,
-                "currentDebit"=>$Debit
-               ]);
         }
+        return response()->json($response);
+
     }
+ 
 }

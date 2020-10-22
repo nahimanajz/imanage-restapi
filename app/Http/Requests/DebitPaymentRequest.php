@@ -27,7 +27,7 @@ class DebitPaymentRequest extends FormRequest
     {
         return [
             "amount"=>"required|integer|gt:0",
-            "credit_id"=>"required|integer"            
+            "debit_id"=>"required|integer"            
         ];
     }
     
