@@ -34,6 +34,11 @@ Route::group(['middleware'=> 'auth:sanctum'], function() {
     Route::apiResource('/debits','DebitController');
     Route::apiResource('/credits','CreditController');
     Route::apiResource('/expenses','ExpenseController');
+
+    //payment Routes
+    Route::post("/pay/credit", "CreditPaymentController@store");
+    Route::post("/pay/debit", "DebitPaymentController@store");
+
     Route::post('auth/logout', 'UserController@logout');
 });
 Route::get('/get-headers',function(){
