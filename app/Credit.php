@@ -10,4 +10,7 @@ class Credit extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    public function creditPayments() {
+        return $this->hasMany(CreditPayment::class);
+    }
 }
