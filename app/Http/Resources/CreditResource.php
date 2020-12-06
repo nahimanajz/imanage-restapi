@@ -25,7 +25,7 @@ class CreditResource extends JsonResource
             "id"=>$this->id,
             "creditor" => $this->creditor,
             "phone" => $this->phone,
-            "amount"=> $this->amount."Rwf",
+            "amount"=> $this->amount." Rwf",
             "timeToPay" => $this->timeToPay,
             "user"=> $this->user->name,
             "date"=>$creationDate,
