@@ -25,11 +25,11 @@ class CreditResource extends JsonResource
             "id"=>$this->id,
             "creditor" => $this->creditor,
             "phone" => $this->phone,
-            "amount"=> $this->amount,
+            "amount"=> $this->amount."Rwf",
             "timeToPay" => $this->timeToPay,
             "user"=> $this->user->name,
             "date"=>$creationDate,
-            "remainingDays"=> ( $rd >=0) ? $rd." Days":'Already Delayed to Pay '.$delayedDays.' Days',
+            "remainingDays"=> ( $rd >=0) ? $rd." Days Remaining":'Already Delayed to Pay '.$delayedDays.' Days',
             "payedAmount"=> CreditPayment::where('credit_id', $this->id)->sum('amount') 
             
             
