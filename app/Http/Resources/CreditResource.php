@@ -31,9 +31,6 @@ class CreditResource extends JsonResource
             "date"=>$creationDate,
             "remainingDays"=> ( $rd >=0) ? $rd." Days Remaining":'Already Delayed to Pay '.$delayedDays.' Days',
             "payedAmount"=> CreditPayment::where('credit_id', $this->id)->sum('amount') 
-            
-            
-
         ];
     }
 }
