@@ -18,6 +18,6 @@ class DepositController extends Controller
     public function store(DepositRequest $req) {
         Deposit::create($req->validated());
         User::updateDepositBalance($req->amount);
-        return response()->json(["status"=>201,"message"=>"Money is deposited"]);
+        return response()->json(["status"=>201,"message"=>"Money is deposited"]);      
     }
 }

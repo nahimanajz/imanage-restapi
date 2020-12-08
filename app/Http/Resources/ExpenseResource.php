@@ -19,7 +19,7 @@ class ExpenseResource extends JsonResource
             "id"=> $this->id,
             "category" => $this->category,
             "description"=> $this->description,
-            "amount" =>$this->amount,
+            "amount" =>$this->amount."  Rwf",
             "user"=> $this->user->name,
             "date" => Carbon::instance($this->created_at)->toDateTimeString()
         ];
