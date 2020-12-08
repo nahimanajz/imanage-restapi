@@ -44,7 +44,7 @@ class SignupRequest extends FormRequest
         ];
     }
     public function failedValidation(Validator $validator)  {
-     throw new HttpResponseException(response()->json(['message' => $validator->errors()->all()]));
+     throw new HttpResponseException(response()->json(['message' => $validator->errors()->all(), "error"=>true]));
     
     }
     
