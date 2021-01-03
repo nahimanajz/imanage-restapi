@@ -5,7 +5,8 @@ use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -74,4 +75,10 @@ class User extends Authenticatable
         $user= User::find(request('user_id'));
         $user->update(['balance'=> User::getBalance() + $depositedAmount]);  
     }
+    public function totalAmount($table, $column, $user_id):int{
+        return DB::table($table)->where('user_id',$user_id)->sum($column);       
+    }
+    public function totalData($column, $user_id, $table):int{
+        return  DB::table($table)->where('user_id',$user_id)->count($column);
+     }
 }
