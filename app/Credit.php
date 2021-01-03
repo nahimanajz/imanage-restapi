@@ -13,4 +13,5 @@ class Credit extends Model
     public function creditPayments() {
         return $this->hasMany(CreditPayment::class);
     }
+    
 }

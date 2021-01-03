@@ -25,6 +25,7 @@ Route::get('/all/expenses','ExpenseController@index',);
 Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
 });
+    Route::get('/dashboard/{user_id}', 'DashboardController@index');
 
 
 //Final step will be to set authorization token
