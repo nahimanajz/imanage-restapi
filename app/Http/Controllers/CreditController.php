@@ -42,7 +42,7 @@ class CreditController extends Controller
                 'Credit'=> $StoreCredit
             ], 201); 
         } else {
-            return response()->json(["message" => "Unable to give a credit due to insufficient balance "], 400);
+            return response()->json(["message" => "Unable to give a credit due to insufficient balance ","status"=>400], 400);
 
         }
         
