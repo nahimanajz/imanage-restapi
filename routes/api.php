@@ -25,15 +25,21 @@ Route::get('/all/expenses','ExpenseController@index',);
 Route::group(['prefix'=>'auth'], function (){
     Route::post('/user', 'UserController@login');
 });
+    Route::get('/dashboard/{user_id}', 'DashboardController@index');
 
 
 //Final step will be to set authorization token
 Route::group(['middleware'=> 'auth:sanctum'], function() {    
     Route::get('all/users','UserController@index');
-    Route::apiResource('/deposit','DepositController');
+    Route::apiResource('/deposit', 'DepositController');
     Route::apiResource('/debits','DebitController');
     Route::apiResource('/credits','CreditController');
     Route::apiResource('/expenses','ExpenseController');
+
+    //payment Routes
+    Route::post("/pay/credit", "CreditPaymentController@store");
+    Route::post("/pay/debit", "DebitPaymentController@store");
+
     Route::post('auth/logout', 'UserController@logout');
 });
 Route::get('/get-headers',function(){

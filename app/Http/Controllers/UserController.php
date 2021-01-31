@@ -47,7 +47,7 @@ class UserController extends Controller
         return response()->json([
             "message" => "User registered successfully",
             "user"=>$user,
-            "token" => $this->signToken($request)
+            "error" => false
         ],
             201);
        
