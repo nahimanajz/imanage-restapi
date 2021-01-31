@@ -28,7 +28,8 @@ class DepositRequest extends FormRequest
     {
         return [
             "amount" => "required|numeric",
-            "user_id"=> "required|exists:users,id"
+            "user_id" => "required|exists:users,id",
+            "currency" => "required|string"
         ];
     }
     public function messages() {
@@ -38,7 +39,7 @@ class DepositRequest extends FormRequest
         ];
     }
     public function failedValidation(Validator $validator)  {
-        throw new HttpResponseException(response()->json(['message' => $validator->errors()->all()]));
+        throw new HttpResponseException(response()->json(['message' => $validator->errors()->all(), "error" => true ]));
        
        }
 }
