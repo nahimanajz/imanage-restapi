@@ -46,4 +46,4 @@ Route::get('/get-headers',function(){
 $headers = apache_request_headers()['user_id'];
 return (int)$headers;
 });
-Route::get('/all/credits', 'CreditController@all');
+
