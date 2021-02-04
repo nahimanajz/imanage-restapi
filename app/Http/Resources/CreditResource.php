@@ -28,7 +28,7 @@ class CreditResource extends JsonResource
             "amount"=> $this->amount." Rwf",
             "timeToPay" => date('D M Y', strtotime($this->timeToPay)),  
             "user"=> $this->user->name,
-            "date"=>$this->created_at->isoFormat("dddd DD YYYY"),
+            "date"=>date('D M Y', strtotime($this->created_at)),
             "remainingDays"=> Carbon::now()->diffForHumans($this->timeToPay),            
             "payedAmount"=> CreditPayment::where('credit_id', $this->id)->sum('amount') 
         ];
