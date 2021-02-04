@@ -102,4 +102,9 @@ class CreditController extends Controller
             "message"=>"Credit is deleted successfully",
         ], 200); 
     }
+    //after checking carbon functionaliy I will erase this method and it's route
+    public function all(){
+    
+        return CreditResource::collection(Credit::all());
+    }
 }
