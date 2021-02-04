@@ -25,10 +25,10 @@ class DebitResource extends JsonResource
             "debitor" => $this->debitor,
             "phone" => $this->phone,
             "amount"=> $this->amount."  Rwf",
-            "timeToPay" => $this->timeToPay,
+            "timeToPay" => $this->timeToPay->isoFormat('MMM Do YY'),
             "user"=> $this->user->name,
-            "date"=> $date,
-            "remainingDays"=> ( $rd >=0) ? $rd." Days Remaining":'Already Delayed to Pay '.$delayedDays.' Days',
+            "date"=> $date->isoFormat('MMM Do YY'),
+            "remainingDays"=> ($rd >=0) ? ($rd == 1 ? "Day Remaining" : "Days Remaining"):'Already Delayed to Pay '.$delayedDays.' Days',
             "payedAmount"=> DebitPayment::where('debit_id', $this->id)->sum('amount')
 
         ];
