@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
 use App\CreditPayment;
-
+use DateTime;
 
 class CreditResource extends JsonResource
 {
@@ -20,16 +20,16 @@ class CreditResource extends JsonResource
         $creationDate = Carbon::instance($this->created_at)->toDateTimeString();
         $rd = Carbon::now()->diffInDays($this->timeToPay);
         $delayedDays = $this->created_at->diffInDays($this->timeToPay);
-               
+   
         return [
             "id"=>$this->id,
             "creditor" => $this->creditor,
             "phone" => $this->phone,
             "amount"=> $this->amount." Rwf",
-            "timeToPay" => $this->timeToPay,
+            "timeToPay" => date('D M Y', strtotime($this->timeToPay)),  
             "user"=> $this->user->name,
-            "date"=>$creationDate,
-            "remainingDays"=> ( $rd >=0) ? $rd." Days Remaining":'Already Delayed to Pay '.$delayedDays.' Days',
+            "date"=>$this->created_at->isoFormat("dddd DD YYYY"),
+            "remainingDays"=> Carbon::now()->diffForHumans($this->timeToPay),            
             "payedAmount"=> CreditPayment::where('credit_id', $this->id)->sum('amount') 
         ];
     }
