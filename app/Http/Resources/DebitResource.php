@@ -29,7 +29,7 @@ class DebitResource extends JsonResource
             "user"=> $this->user->name,
             "date"=> date('D M Y', strtotime($this->created_at)),
             "remainingDays"=> ( $rd >=0) ? $rd." Days Remaining":'Already Delayed to Pay '.$delayedDays.' Days',
-            "payedAmount"=> DebitPayment::where('debit_id', $this->id)->sum('amount')
+            "payedAmount"=> DebitPayment::where('debit_id', $this->id)->sum('amount')." Rwf"
 
         ];
     }
