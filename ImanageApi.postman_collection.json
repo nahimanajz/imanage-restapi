@@ -1,0 +1,790 @@
+{
+	"info": {
+		"_postman_id": "ef7714a5-3722-4169-bb4b-7b8f49270227",
+		"name": "ImanageApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Retreive all users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/users",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register new User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "join@example.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Kpss4@123",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0785343213",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Jina",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "Kpss4@123",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/users",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "password",
+							"value": "Kpss4@123",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "join@example.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/auth/user",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deposit money",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "76900000",
+							"type": "text"
+						},
+						{
+							"key": "currency",
+							"value": "Rwf",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/deposit",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"deposit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save expenses",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "7650",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Sports and leisures",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/expenses",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve all logged user  expenses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "7650",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Sports and leisures",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/expenses",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve expenses based on category",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "7650",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Sports and leisures",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/expenses/Sports and leisures",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"expenses",
+						"Sports and leisures"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete an expense based on id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "amount",
+							"value": "7650",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Sports and leisures",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/expenses/125",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"expenses",
+						"125"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save new debit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "debitor",
+							"value": "Mackenzie",
+							"type": "text"
+						},
+						{
+							"key": "timeToPay",
+							"value": "2021-12-31 12:00:00",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0782345121",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "9800",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/debits",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"debits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all debits",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "debitor",
+							"value": "Mackenzie",
+							"type": "text"
+						},
+						{
+							"key": "timeToPay",
+							"value": "2021-12-31 12:00:00",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0782345121",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "9800",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/debits",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"debits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Credits",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "creditor",
+							"value": "Peter",
+							"type": "text"
+						},
+						{
+							"key": "timeToPay",
+							"value": "2021-12-31 12:00:00",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0782345121",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "19000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/credits",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all  Credits",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "creditor",
+							"value": "Peter",
+							"type": "text"
+						},
+						{
+							"key": "timeToPay",
+							"value": "2021-12-31 12:00:00",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0782345121",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "19000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/credits",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"credits"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get users credit based on his phone number or id of credit",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "creditor",
+							"value": "Peter",
+							"type": "text"
+						},
+						{
+							"key": "timeToPay",
+							"value": "2021-12-31 12:00:00",
+							"type": "text"
+						},
+						{
+							"key": "user_id",
+							"value": "26",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "0782345121",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "19000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/credits/0782345121",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"credits",
+						"0782345121"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pay a credit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "credit_id",
+							"value": "45",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/pay/credit",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pay",
+						"credit"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pay debit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "141|VLI32nvbT5sNfqgCW9WRSKw62HIXD4Bj6wNOw5wJ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "debit_id",
+							"value": "41",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "1203",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://fathomless-taiga-31341.herokuapp.com/api/pay/debit",
+					"protocol": "http",
+					"host": [
+						"fathomless-taiga-31341",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						"pay",
+						"debit"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
