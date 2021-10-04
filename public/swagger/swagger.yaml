@@ -1,0 +1,387 @@
+openapi: 3.0.0
+info:
+  title: ImanageApi
+  contact: {}
+  version: '1.0'
+servers:
+- url: http://fathomless-taiga-31341.herokuapp.com/api
+  variables: {}
+paths:
+  /users:
+    get:
+      tags:
+      - Misc
+      summary: Retreive all users
+      operationId: Retreiveallusers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - Misc
+      summary: Register new User
+      operationId: RegisternewUser
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - email
+              - password
+              - phone
+              - name
+              - password_confirmation
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: join@example.com
+                password:
+                  type: string
+                  example: Kpss4@123
+                phone:
+                  type: string
+                  example: 0785343213
+                name:
+                  type: string
+                  example: Jina
+                password_confirmation:
+                  type: string
+                  example: Kpss4@123
+        required: false
+      responses:
+        '200':
+          description: 'Enter required info to make an account'
+          headers: {}
+      deprecated: false
+  /auth/user:
+    post:
+      tags:
+      - Misc
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - password
+              - email
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: Kpss4@123
+                email:
+                  type: string
+                  example: join@example.com
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /deposit:
+    post:
+      tags:
+      - Misc
+      summary: Deposit money
+      operationId: Depositmoney
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - user_id
+              - amount
+              - currency
+              type: object
+              properties:
+                user_id:
+                  type: integer
+                  format: int32
+                  example: 26
+                amount:
+                  type: integer
+                  format: int32
+                  example: 76900000
+                currency:
+                  type: string
+                  example: Rwf
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /expenses:
+    post:
+      tags:
+      - Misc
+      summary: Save expenses
+      operationId: Saveexpenses
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - amount
+              - category
+              - user_id
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  format: int32
+                  example: 7650
+                category:
+                  type: string
+                  example: Sports and leisures
+                user_id:
+                  type: integer
+                  format: int32
+                  example: 26
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Misc
+      summary: Retrieve all logged user  expenses
+      operationId: Retrieveallloggeduserexpenses
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /expenses/Sports and leisures:
+    get:
+      tags:
+      - Misc
+      summary: Retrieve expenses based on category
+      operationId: Retrieveexpensesbasedoncategory
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /expenses/125:
+    delete:
+      tags:
+      - Misc
+      summary: Delete an expense based on id
+      operationId: Deleteanexpensebasedonid
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /debits:
+    post:
+      tags:
+      - Misc
+      summary: Save new debit
+      operationId: Savenewdebit
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - debitor
+              - timeToPay
+              - user_id
+              - phone
+              - amount
+              type: object
+              properties:
+                debitor:
+                  type: string
+                  example: Mackenzie
+                timeToPay:
+                  type: string
+                  example: 2021-12-31 12:00:00
+                user_id:
+                  type: integer
+                  format: int32
+                  example: 26
+                phone:
+                  type: string
+                  example: 0782345121
+                amount:
+                  type: integer
+                  format: int32
+                  example: 9800
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Misc
+      summary: get all debits
+      operationId: getalldebits
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /credits:
+    post:
+      tags:
+      - Misc
+      summary: Save Credits
+      operationId: SaveCredits
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - creditor
+              - timeToPay
+              - user_id
+              - phone
+              - amount
+              type: object
+              properties:
+                creditor:
+                  type: string
+                  example: Peter
+                timeToPay:
+                  type: string
+                  example: 2021-12-31 12:00:00
+                user_id:
+                  type: integer
+                  format: int32
+                  example: 26
+                phone:
+                  type: string
+                  example: 0782345121
+                amount:
+                  type: integer
+                  format: int32
+                  example: 19000
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - Misc
+      summary: get all  Credits
+      operationId: getallCredits
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /credits/0782345121:
+    get:
+      tags:
+      - Misc
+      summary: get users credit based on his phone number or id of credit
+      operationId: getuserscreditbasedonhisphonenumberoridofcredit
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /pay/credit:
+    post:
+      tags:
+      - Misc
+      summary: pay a credit
+      operationId: payacredit
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - credit_id
+              - amount
+              type: object
+              properties:
+                credit_id:
+                  type: integer
+                  format: int32
+                  example: 45
+                amount:
+                  type: integer
+                  format: int32
+                  example: 100
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /pay/debit:
+    post:
+      tags:
+      - Misc
+      summary: pay debit
+      operationId: paydebit
+      parameters: []
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            encoding: {}
+            schema:
+              required:
+              - debit_id
+              - amount
+              type: object
+              properties:
+                debit_id:
+                  type: integer
+                  format: int32
+                  example: 41
+                amount:
+                  type: integer
+                  format: int32
+                  example: 1203
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  securitySchemes:
+    httpBearer:
+      type: http
+      scheme: bearer
+security:
+- httpBearer: []
+tags:
+- name: Misc
+  description: ''
