@@ -3,10 +3,12 @@ This project developed to manage personal daily expenses APis endoint which late
 finally I developed react native appication with like functionalities get it from [playstore](https://play.google.com/store/apps/details?id=com.credex&hl=en&gl=US) which has 100+ downloads as of December, 2023
 
 #### Setup instructions
-
-clone this repository
+Clone this repository then follow the following instraction
+``` 
 run composer update
-install passwort and follow instraction here [(https://laravel.com/docs/7.x/passport)]
+Install passwort and follow instraction here [(https://laravel.com/docs/7.x/passport)]
+Run needed migrations
+```
 
 ### Defined routes
 - apiResource  Users
